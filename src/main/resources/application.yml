@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: letter_backend
+  data:
+    mongodb:
+      uri: mongodb://mongodb:27017/letter_db
+
+jwt:
+  secret: your-secret-key-your-secret-key

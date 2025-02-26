@@ -1,0 +1,29 @@
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    networks:
+      - backend-network
+    environment:
+      MONGO_INITDB_DATABASE: letter_db
+
+  app:
+    build: .
+    container_name: springboot-app
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongodb
+    networks:
+      - backend-network
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://mongodb:27017/letter_db
+      JWT_SECRET: your-secret-key-your-secret-key  # ✅ 여기에 추가
+
+networks:
+  backend-network:
+    driver: bridge

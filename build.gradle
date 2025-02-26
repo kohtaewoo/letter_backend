@@ -1,0 +1,52 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.4.2'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.example.letterbackend'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // ✅ Spring Boot 기본 라이브러리
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+
+    // ✅ Lombok (자동 코드 생성)
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // ✅ 개발 편의성 도구 (핫 리로드)
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // ✅ JWT (JSON Web Token) - `com.auth0:java-jwt` 사용
+    implementation 'com.auth0:java-jwt:4.4.0'
+
+    // ✅ 비밀번호 암호화 (BCrypt)
+    implementation 'org.springframework.security:spring-security-crypto'
+
+    // ✅ 테스트 관련
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
